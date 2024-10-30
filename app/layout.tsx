@@ -1,6 +1,7 @@
 import type {Metadata} from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import "easymde/dist/easymde.min.css";
 
 export const metadata: Metadata = {
   title: "YC Directory",
@@ -54,7 +55,7 @@ const workSans = localFont({
       style: "normal",
     },
   ],
-  variable:"--font-work-sans"
+  variable: "--font-work-sans",
 });
 export default function RootLayout({
   children,
