@@ -1,20 +1,29 @@
+import { EyeIcon } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Button } from './ui/button';
 import { formatDate } from '@/lib/utils';
-import {EyeIcon} from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import {Button} from "./ui/button";
-
+import { Author, Startup } from '@/sanity.types';
+export type StartupCardType=Omit<Startup,"author">& {author?:Author}
 const StartupCard = ({post}: {post: StartupCardType}) => {
   const {
     _createdAt,
     views,
-    author: {_id: authorId, name: authorName},
     title,
     category,
     _id,
-    image,
     discription,
+    image,
+    author, 
   }: StartupCardType = post;
+
+  // Destructure author with defaults, ensuring it won't throw an error if author is undefined
+  const {
+    id: authorId, // Default to empty string
+    name: authorName, // Default name
+    image: authorImage, // Default image
+    bio,
+  } = author || {}; // Use fallback to an empty object if author is undefined
 
   return (
     <li className="startup-card group">
@@ -27,17 +36,19 @@ const StartupCard = ({post}: {post: StartupCardType}) => {
       </div>
       <div className="flex-between mt-5 gap-5">
         <div className="flex-1">
-          <Link href={`/user/${authorId}`}>
-            <p className="text-16-medium line-clamp-1">{authorName}</p>
-          </Link>
+          {authorId && (
+            <Link href={`/user/${authorId}`}>
+              <p className="text-16-medium line-clamp-1">{authorName}</p>
+            </Link>
+          )}
           <Link href={`/startup/${_id}`}>
             <h3 className="text-26-semibold line-clamp-1">{title}</h3>
           </Link>
         </div>
-        <Link href={`/startup/${authorId}`}>
+        <Link href={`/startup/${_id}`}>
           <Image
-            src={"https://placehold.co/48x48?text=Hello\nWorld"}
-            alt={"Placeholder"}
+            src={authorImage || "https://placehold.co/48x48?text=Hello\nWorld"}
+            alt={authorName || "Placeholder"}
             width={48}
             height={48}
             className="rounded-full"
@@ -46,10 +57,14 @@ const StartupCard = ({post}: {post: StartupCardType}) => {
       </div>
       <Link href={`/startup/${_id}`}>
         <p className="startup-card_desc">{discription}</p>
-        <img src={image} alt="placeholder" className="startup-card_img" />
+        <img
+          src={image || "https://placehold.co/600x400"}
+          alt="placeholder"
+          className="startup-card_img"
+        />
       </Link>
       <div className="flex-between gap-3 mt-5">
-        <Link href={`/?query=${category.toLowerCase()}`}>
+        <Link href={`/?query=${category?.toLowerCase()}`}>
           <p className="text-16-medium">{category}</p>
         </Link>
         <Button className="startup-card_btn" asChild>
@@ -59,4 +74,4 @@ const StartupCard = ({post}: {post: StartupCardType}) => {
     </li>
   );
 };
-export default StartupCard;
+export default StartupCard
