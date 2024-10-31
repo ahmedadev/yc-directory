@@ -1,5 +1,4 @@
 import { Metadata } from 'next/types';
-import { Inter } from 'next/font/google';
 import Navbar from '../../components/Navbar';
 
 // Configure the Inter font with subsets

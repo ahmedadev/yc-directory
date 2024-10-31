@@ -17,13 +17,12 @@ const StartupCard = ({post}: {post: StartupCardType}) => {
     author, 
   }: StartupCardType = post;
 
-  // Destructure author with defaults, ensuring it won't throw an error if author is undefined
+
   const {
-    id: authorId, // Default to empty string
-    name: authorName, // Default name
-    image: authorImage, // Default image
-    bio,
-  } = author || {}; // Use fallback to an empty object if author is undefined
+    id: authorId, 
+    name: authorName,
+    image: authorImage,
+  } = author || {}; 
 
   return (
     <li className="startup-card group">
