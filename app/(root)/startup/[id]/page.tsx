@@ -6,7 +6,7 @@ import Link from "next/link";
 import {notFound} from "next/navigation";
 export const experimental_ppr = true;
 const Page = async ({params}: {params: {id: string}}) => {
-  const {id} = params;
+  const id = (await params).id;
 
   const post = await client.fetch(STARTUPS_BY_ID_QUERY, {id});
 
