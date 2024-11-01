@@ -1,10 +1,10 @@
-import { EyeIcon } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Button } from './ui/button';
-import { formatDate } from '@/lib/utils';
-import { Author, Startup } from '@/sanity.types';
-export type StartupCardType=Omit<Startup,"author">& {author?:Author}
+import {EyeIcon} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import {Button} from "./ui/button";
+import {formatDate} from "@/lib/utils";
+import {Author, Startup} from "@/sanity.types";
+export type StartupCardType = Omit<Startup, "author"> & {author?: Author};
 const StartupCard = ({post}: {post: StartupCardType}) => {
   const {
     _createdAt,
@@ -14,15 +14,10 @@ const StartupCard = ({post}: {post: StartupCardType}) => {
     _id,
     discription,
     image,
-    author, 
+    author,
   }: StartupCardType = post;
 
-
-  const {
-    id: authorId, 
-    name: authorName,
-    image: authorImage,
-  } = author || {}; 
+  const {id: authorId, name: authorName, image: authorImage} = author || {};
 
   return (
     <li className="startup-card group">
@@ -73,4 +68,4 @@ const StartupCard = ({post}: {post: StartupCardType}) => {
     </li>
   );
 };
-export default StartupCard
+export default StartupCard;
